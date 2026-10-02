@@ -33,3 +33,11 @@ export async function createExpense(
   })
   return response.data
 }
+
+export async function deleteExpense(token: string, id: number): Promise<void> {
+  await api.delete(`/expenses/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
