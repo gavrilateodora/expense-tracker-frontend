@@ -7,8 +7,26 @@ export interface Expense {
   date: string
 }
 
+export interface ExpenseInput {
+  amount: number
+  description: string
+  date: string
+}
+
 export async function getExpenses(token: string): Promise<Expense[]> {
   const response = await api.get('/expenses', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
+}
+
+export async function createExpense(
+  token: string,
+  expense: ExpenseInput
+): Promise<Expense> {
+  const response = await api.post('/expenses', expense, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

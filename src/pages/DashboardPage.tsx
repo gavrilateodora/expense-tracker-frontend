@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { getExpenses, type Expense } from '../services/expenseService'
+import ExpenseForm from '../components/ExpenseForm'
 
 function DashboardPage() {
   const { token } = useAuth()
@@ -18,10 +19,18 @@ function DashboardPage() {
       })
   }, [token])
 
+  function handleExpenseAdded(newExpense: Expense) {
+    setExpenses((prev) => [...prev, newExpense])
+  }
+
   return (
     <div>
       <h1>Dashboard</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <ExpenseForm onExpenseAdded={handleExpenseAdded} />
+
+      <h2>Cheltuielile tale</h2>
       <ul>
         {expenses.map((expense) => (
           <li key={expense.id}>
