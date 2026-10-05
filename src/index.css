@@ -559,63 +559,6 @@ a {
   background: #fecaca;
 }
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 1000;
-}
-
-.delete-modal {
-  width: min(100%, 420px);
-  background: #ffffff;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
-}
-
-.delete-modal h3 {
-  margin: 0 0 12px;
-  color: #0f172a;
-  font-size: 1.4rem;
-}
-
-.delete-modal p {
-  margin: 0;
-  line-height: 1.6;
-  color: #475569;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.secondary-btn {
-  border: 1px solid #cbd5e1;
-  background: #ffffff;
-  color: #0f172a;
-  border-radius: 10px;
-  padding: 9px 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.secondary-btn:hover {
-  background: #f8fafc;
-}
-
-.modal-delete-btn {
-  min-width: 100px;
-}
-
 .empty-state {
   display: grid;
   gap: 8px;
