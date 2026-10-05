@@ -7,13 +7,11 @@ function DashboardPage() {
   const { token } = useAuth()
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [error, setError] = useState('')
-  const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null)
 
   const totalExpenses = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0)
   const sortedExpenses = [...expenses].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   )
-  const expenseToDelete = expenses.find((expense) => expense.id === pendingDeleteId) ?? null
 
   useEffect(() => {
     if (!token) return
@@ -36,7 +34,6 @@ function DashboardPage() {
     try {
       await deleteExpense(token, id)
       setExpenses((prev) => prev.filter((expense) => expense.id !== id))
-      setPendingDeleteId(null)
     } catch (err) {
       setError('Could not delete expense.')
       console.error(err)
@@ -45,30 +42,6 @@ function DashboardPage() {
 
   return (
     <div className="dashboard-page">
-      {expenseToDelete && (
-        <div className="modal-backdrop" onClick={() => setPendingDeleteId(null)}>
-          <div className="delete-modal" onClick={(event) => event.stopPropagation()}>
-            <h3>Delete expense?</h3>
-            <p>
-              Are you sure you want to delete <strong>{expenseToDelete.description}</strong> from{' '}
-              {expenseToDelete.date}?
-            </p>
-
-            <div className="modal-actions">
-              <button type="button" className="secondary-btn" onClick={() => setPendingDeleteId(null)}>
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="delete-btn modal-delete-btn"
-                onClick={() => handleDelete(expenseToDelete.id)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="dashboard-shell">
         <header className="dashboard-header">
           <div>
@@ -117,7 +90,7 @@ function DashboardPage() {
 
                     <div className="expense-actions">
                       <span className="expense-amount">{Number(expense.amount).toFixed(2)} lei</span>
-                      <button className="delete-btn" onClick={() => setPendingDeleteId(expense.id)}>
+                      <button className="delete-btn" onClick={() => handleDelete(expense.id)}>
                         Delete
                       </button>
                     </div>
